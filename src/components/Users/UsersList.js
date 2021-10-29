@@ -1,14 +1,34 @@
+import { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { userData } from "../../userData";
+import { useSelector, useDispatch } from "react-redux";
+import { getUsers } from "../../redux/actions/usersAction";
 import User from "./User";
 
 const UsersList = () => {
+  const users = useSelector((state) => {
+    return state.users.users;
+  });
+
+  const loading = useSelector((state) => {
+    return state.users.loading;
+  });
+  const error = useSelector((state) => {
+    return state.users.error;
+  });
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUsers([]));
+  }, []);
+
   return (
     <div className="my-5">
       <Container>
         <Row>
-          {userData.length > 0 &&
-            userData.map((user) => {
+          {loading && <p>Loading...</p>}
+          {users.length > 0 &&
+            users.map((user) => {
               return (
                 <Col
                   className="mb-4"
@@ -22,6 +42,7 @@ const UsersList = () => {
                 </Col>
               );
             })}
+          {error === 0 && <p>{error}</p>}
         </Row>
       </Container>
     </div>

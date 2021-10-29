@@ -1,5 +1,17 @@
+
+
 .footer{
     height: 2.5rem;
+}
+
+.user-name{
+    text-decoration: none;
+    color: black;
+}
+
+.user-name:hover , .user-name:active{
+    text-decoration: none;
+    color: black;
 }
 
 .user-info-container{
