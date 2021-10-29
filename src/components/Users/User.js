@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Card, Modal, Button, Form, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,7 +13,7 @@ import {
 import { faEnvelope, faHeart } from "@fortawesome/free-regular-svg-icons";
 
 import "./users.css";
-import { deleteUser, deleteUserSaga } from "../../redux/actions/usersAction";
+import { deleteUser, updateUser } from "../../redux/actions/usersAction";
 
 const User = ({ userInfo }) => {
   const users = useSelector((state) => {
@@ -23,12 +23,39 @@ const User = ({ userInfo }) => {
 
   const [isLiked, setLiked] = useState(false);
   const [showEditUserModal, setEditUserModal] = useState(false);
+  const [userForm, setUserForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    website: "",
+  });
 
   const handleCloseModal = () => setEditUserModal(false);
   const handleShowModal = () => setEditUserModal(true);
 
   const onClickDelete = (id) => {
     dispatch(deleteUser(id));
+  };
+
+  useEffect(() => {
+    if (userInfo) {
+      setUserForm({
+        name: userInfo.name,
+        email: userInfo.email,
+        phone: userInfo.phone,
+        website: userInfo.website,
+      });
+    }
+  }, [userInfo]);
+
+  const onChangeInputField = (e) => {
+    const { id, value } = e.target;
+    setUserForm((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const onSubmitUserForm = () => {
+    dispatch(updateUser({ ...userForm, id: userInfo.id }));
+    handleCloseModal();
   };
 
   return (
@@ -112,7 +139,8 @@ const User = ({ userInfo }) => {
                 <Form.Control
                   className="col-xs-10"
                   type="text"
-                  value={userInfo.name}
+                  value={userForm.name}
+                  onChange={onChangeInputField}
                   placeholder="Your Name"
                 />
               </Col>
@@ -123,7 +151,12 @@ const User = ({ userInfo }) => {
                 <span className="text-danger">*</span>Email
               </Form.Label>
               <Col sm="10">
-                <Form.Control type="email" placeholder="Your Email" />
+                <Form.Control
+                  value={userForm.email}
+                  onChange={onChangeInputField}
+                  type="email"
+                  placeholder="Your Email"
+                />
               </Col>
             </Form.Group>
 
@@ -132,7 +165,12 @@ const User = ({ userInfo }) => {
                 <span className="text-danger">*</span>Phone
               </Form.Label>
               <Col sm="10">
-                <Form.Control type="text" placeholder="Your Mobile No." />
+                <Form.Control
+                  value={userForm.phone}
+                  onChange={onChangeInputField}
+                  type="text"
+                  placeholder="Your Mobile No."
+                />
               </Col>
             </Form.Group>
 
@@ -141,7 +179,12 @@ const User = ({ userInfo }) => {
                 <span className="text-danger">*</span>Website
               </Form.Label>
               <Col sm="10">
-                <Form.Control type="text" placeholder="Website Url" />
+                <Form.Control
+                  value={userForm.website}
+                  onChange={onChangeInputField}
+                  type="text"
+                  placeholder="Website Url"
+                />
               </Col>
             </Form.Group>
           </Form>
@@ -150,7 +193,11 @@ const User = ({ userInfo }) => {
           <Button variant="outline-secondary" onClick={handleCloseModal}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleCloseModal}>
+          <Button
+            onClick={() => onSubmitUserForm()}
+            type="submit"
+            variant="primary"
+          >
             OK
           </Button>
         </Modal.Footer>

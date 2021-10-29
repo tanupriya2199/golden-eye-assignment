@@ -14,13 +14,13 @@ export const deleteUser = (id) => {
   };
 };
 
-// export function updateUser(id) {
-//   console.log("user===", id);
-//   return {
-//     type: type.UPDATE_USER,
-//     payload: id,
-//   };
-// }
+export function updateUser(user) {
+  console.log("user===", user);
+  return {
+    type: type.UPDATE_USER,
+    payload: user,
+  };
+}
 
 // export function updateUserSaga(user) {
 //   console.log("user===", user);
