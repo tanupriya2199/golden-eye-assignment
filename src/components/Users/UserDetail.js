@@ -23,33 +23,36 @@ const UserDetail = () => {
             <div>
               <img
                 src={`https://avatars.dicebear.com/v2/avataaars/${userInfo.username}.svg`}
+                alt="User Profile Pic"
               />
             </div>
             <hr />
           </Col>
           <Col sm={8}>
             <div>
-              <h2 className="mb-0">{userInfo.name}</h2>
+              <h2 className="mb-0 sub-heading">{userInfo.name}</h2>
               <small>{userInfo.username}</small>
               <hr></hr>
-              <div>
-                <h5>Work At</h5>
+              <div className="">
+                <h5 className="sub-heading">Work At</h5>
                 <div>
                   <h6>{userInfo?.company?.name}</h6>
                 </div>
               </div>
               <hr />
               <div className="user-info-container">
-                <h5>Contact Information</h5>
+                <h5 className="sub-heading">Contact Information</h5>
                 <div>
                   <div>
-                    <span>Phone :</span> <span>{userInfo.phone}</span>
+                    <span className="fw-bold">Phone :</span>{" "}
+                    <span>{userInfo.phone}</span>
                   </div>
                   <div>
-                    <span>email :</span> <span>{userInfo.email}</span>
+                    <span className="fw-bold">email :</span>{" "}
+                    <span>{userInfo.email}</span>
                   </div>
                   <div>
-                    <span>Address :</span>
+                    <span className="fw-bold">Address :</span>
                     <span>
                       {userInfo.address?.street} {userInfo.address?.suite}{" "}
                       <br />
@@ -57,7 +60,8 @@ const UserDetail = () => {
                     </span>
                   </div>
                   <div>
-                    <span>Site :</span> <span>{userInfo.website}</span>
+                    <span className="fw-bold">Site :</span>{" "}
+                    <span>{userInfo.website}</span>
                   </div>
                 </div>
               </div>
