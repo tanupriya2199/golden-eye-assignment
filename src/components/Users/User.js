@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Card, Modal, Button, Form, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSelector, useDispatch } from "react-redux";
 import {
   faPhone,
   faGlobe,
@@ -12,15 +13,23 @@ import {
 import { faEnvelope, faHeart } from "@fortawesome/free-regular-svg-icons";
 
 import "./users.css";
+import { deleteUser, deleteUserSaga } from "../../redux/actions/usersAction";
 
 const User = ({ userInfo }) => {
+  const users = useSelector((state) => {
+    return state.users.users;
+  });
+  const dispatch = useDispatch();
+
   const [isLiked, setLiked] = useState(false);
   const [showEditUserModal, setEditUserModal] = useState(false);
 
   const handleCloseModal = () => setEditUserModal(false);
   const handleShowModal = () => setEditUserModal(true);
 
-  const onClickDelete = () => {};
+  const onClickDelete = (id) => {
+    dispatch(deleteUser(id));
+  };
 
   return (
     <div>
@@ -83,7 +92,7 @@ const User = ({ userInfo }) => {
             />
             <FontAwesomeIcon
               className="cursor-pointer"
-              onClick={() => onClickDelete()}
+              onClick={() => onClickDelete(userInfo.id)}
               icon={faTrash}
             />
           </div>

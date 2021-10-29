@@ -7,6 +7,7 @@ const initialState = {
 };
 
 export default function users(state = initialState, action) {
+  console.log("action===", action, "ini", state);
   switch (action.type) {
     case type.GET_USERS_REQUESTED:
       return {
@@ -25,6 +26,12 @@ export default function users(state = initialState, action) {
         loading: false,
         error: action.message,
       };
+    case type.DELETE_USER: {
+      return {
+        ...state,
+        users: state.users.filter((todo) => todo.id !== action.payload),
+      };
+    }
 
     default:
       return state;

@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from "redux-saga/effects";
+import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 
 const apiUrl = "https://getautonami.com/users/index.json";
 
@@ -22,8 +22,6 @@ function* fetchUsers(action) {
   }
 }
 
-function* userSaga() {
+export function* userSaga() {
   yield takeEvery("GET_USERS_REQUESTED", fetchUsers);
 }
-
-export default userSaga;

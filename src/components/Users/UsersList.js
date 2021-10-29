@@ -27,7 +27,7 @@ const UsersList = () => {
       <Container>
         <Row>
           {loading && <p>Loading...</p>}
-          {users.length > 0 &&
+          {users &&
             users.map((user) => {
               return (
                 <Col

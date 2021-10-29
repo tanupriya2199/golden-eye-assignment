@@ -10,8 +10,6 @@ const store = compose(
   window.devToolsExtension && window.devToolsExtension()
 )(createStore)(rootReducer);
 
-// const store = createStore(rootReducer);
-
 sagaMiddleware.run(rootSaga);
 
 export default store;
