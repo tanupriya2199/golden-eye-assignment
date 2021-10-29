@@ -58,10 +58,13 @@ const User = ({ userInfo }) => {
   return (
     <div>
       <Card>
-        <Card.Img
-          variant="top"
-          src={`https://avatars.dicebear.com/v2/avataaars/${userInfo.username}.svg`}
-        />
+        <div className="image-container">
+          <Card.Img
+            variant="top"
+            className="user-avatar"
+            src={`https://avatars.dicebear.com/v2/avataaars/${userInfo.username}.svg`}
+          />
+        </div>
         <Card.Body>
           <h5 className="cursor-pointer ">
             <Link
